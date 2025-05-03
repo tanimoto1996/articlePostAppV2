@@ -32,7 +32,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'articlepostappv2.s3.ap-northeast-1.amazonaws.com',
+        hostname: 'articlepostapp-tanimoto.s3.ap-northeast-1.amazonaws.com',
         port: '',
         pathname: '/**',
       },

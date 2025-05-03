@@ -21,22 +21,24 @@ export const jwtAccessTokenEncode = async({
     data:string;
 }> => {
     try{
+        // 暗号化をするためのキーをUint8Arrayに変換
         const jwtKeyUint8Array = new TextEncoder().encode(jwtKey);// ← 関数の外で処理するよう修正した方が良いです
+        // JWT（JSON WEB TOKEN）を生成する
         const token = await new jose.SignJWT(objectData)
             .setProtectedHeader({ alg: 'HS256' })
             .setExpirationTime('2h')
             .sign(jwtKeyUint8Array);
         return {
-            result:true,
-            messag:'success',
-            data:token
+            result: true,
+            messag: 'success',
+            data: token
         };
     }catch(err){
         const errMessage = err instanceof Error ?  err.message : `Internal Server Error.`;
         return {
-            result:false,
-            messag:errMessage,
-            data:'',
+            result: false,
+            messag: errMessage,
+            data: '',
         };
     }
 }
@@ -58,7 +60,7 @@ export const jwtAccessTokenDecode = async ({
         return {
             result:true,
             messag:'success',
-            data:payload
+            data:payload // JWTのペイロード部分（オブジェクト）を返す
         };
     }catch(err){
         const errMessage = err instanceof Error ?  `decoded err.${err.message}` : `Internal Server Error.`;
